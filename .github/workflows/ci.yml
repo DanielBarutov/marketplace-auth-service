@@ -37,9 +37,8 @@ jobs:
 
       - name: Install dependencies
         run: |
-          pip install pytest
-          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+          uv sync
 
       - name: Run Tests
-        run: pytest tests/ -v
+        run: uv run pytest tests/ -v
     name: Tests
