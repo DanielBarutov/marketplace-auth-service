@@ -10,9 +10,12 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "TODO: implement lint job"
+      - run: ruff check && ruff format --check src/ bin/
+    name: Lint
 
   test:
     runs-on: ubuntu-latest
     steps:
-      - run: echo "TODO: implement test job"
+      - run: pytest tests/ -v
+    needs: lint
+    name: Tests

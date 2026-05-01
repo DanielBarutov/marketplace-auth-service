@@ -13,3 +13,7 @@ wheels/
 .env
 
 CLAUDE.md
+
+.ruff_cache
+.pytest_cache
+.vscode
