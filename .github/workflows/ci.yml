@@ -10,12 +10,36 @@ jobs:
   lint:
     runs-on: ubuntu-latest
     steps:
-      - run: ruff check && ruff format --check src/ bin/
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install Ruff
+        run: pip install ruff
+
+      - name: Run Ruff
+        run: ruff check src/ bin/ && ruff format --check src/ bin/
     name: Lint
 
   test:
     runs-on: ubuntu-latest
-    steps:
-      - run: pytest tests/ -v
     needs: lint
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pytest
+          if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+      - name: Run Tests
+        run: pytest tests/ -v
     name: Tests
