@@ -17,3 +17,7 @@ wheels/
 .pytest_cache
 
 CLAUDE.md
+
+.ruff_cache
+.pytest_cache
+.vscode
