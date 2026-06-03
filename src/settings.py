@@ -6,7 +6,12 @@ from pydantic_settings import BaseSettings, SettingsConfigDict
 class Settings(BaseSettings):
     model_config = SettingsConfigDict(env_file=".env", env_file_encoding="utf-8")
     still_url = os.getenv("POSTGRES_CONNECTION_STRING")
-    database_url: str = still_url.replace(":", ":asyncpg:", 1)
+    if still_url:
+        database_url: str = still_url.replace(":", ":asyncpg:", 1)
+    else:
+        database_url: str = (
+            "postgresql+asyncpg://postgres:postgres@localhost:5432/auth_db"
+        )
     jwt_secret: str = "change-me"
     jwt_algorithm: str = "HS256"
     jwt_expire_hours: int = 24
