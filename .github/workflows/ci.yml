@@ -56,6 +56,8 @@ jobs:
       image: ${{ steps.meta.outputs.tags }}
       repo: ${{ steps.repo.outputs.repo }}
     steps:
+      - uses: actions/checkout@v4
+
       - name: Set up QEMU
         uses: docker/setup-qemu-action@v3
 
@@ -93,7 +95,7 @@ jobs:
           cache-from: type=gha
           cache-to: type=gha,mode=max
 
-  deploy:
+  Deploy:
     needs: build
     runs-on: ubuntu-latest
 
